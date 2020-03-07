@@ -11,6 +11,9 @@ jupyter = "*"
 numpy = "*"
 ipython = "*"
 nltk = "*"
+flask = "*"
+django = "*"
+django-picklefield = "*"
 
 [requires]
 python_version = "3.7"
