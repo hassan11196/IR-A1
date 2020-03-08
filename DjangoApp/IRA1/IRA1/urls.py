@@ -21,5 +21,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('iindex/', include('inverted_index.urls')),
-    path('get_csrf/', views.csrf, name='csrf'),
+    path('authentication/get_csrf/', views.csrf, name='csrf'),
 ]
