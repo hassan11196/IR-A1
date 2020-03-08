@@ -9,6 +9,7 @@ import os
 from .helpers import PostingList, build_index, get_boolean_query, get_phrasal_query, get_proximity_query
 from .models import InvertedIndexModel
 FILE_PATH = os.path.dirname(__file__) + '../../data/' + 'Trump Speechs/speech_'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class Test(View):
     def get(self, request):
         return JsonResponse({'status':True, 'message':'Server is up'}, status=200)
@@ -18,7 +19,8 @@ class DocumentRetreival(View):
     def get(self, request, doc_id):
         content = 'ERROR Reading Data'
         try:
-            with open(f'{FILE_PATH}{doc_id}.txt', 'r') as file:
+            BASE_URL = os.path.join(BASE_DIR, 'IRA1\static')
+            with open(f'{BASE_URL}/speech_{doc_id}.txt', 'r') as file:
                 content = file.read()
             return HttpResponse(content,content_type='text/plain', status=200)
         except BaseException as e:

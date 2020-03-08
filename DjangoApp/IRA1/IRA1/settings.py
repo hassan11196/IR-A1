@@ -25,7 +25,7 @@ SECRET_KEY = ')p&jce&m=t(dl@a0fdrer4rhy-8cj0!ixguxa%d^1jlly!c+h0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ira1.herokuapp.com']
+ALLOWED_HOSTS = ['ira1.herokuapp.com','127.0.0.1','localhost']
 
 
 # Application definition
@@ -117,6 +117,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.dirname(__file__) + '../../data/' + 'Trump Speechs/'
+]
 
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
