@@ -30,7 +30,7 @@ class Indexer(View):
 
         return JsonResponse({'status':True, 'message':'Indexer Status'}, status=200)
 
-    # @csrf_exempt
+    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -47,7 +47,7 @@ class QueryEngine(View):
         ]
         return JsonResponse({'status':True, 'message':'Query Engine Status', 'options':query_options}, status=200)
 
-    # @csrf_exempt
+    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
