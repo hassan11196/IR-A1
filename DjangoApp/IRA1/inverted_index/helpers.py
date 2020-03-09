@@ -88,7 +88,6 @@ def split_words(vocabl):
 # Remove Punctuation
 def remove_punctuation(word):
     return word.translate(word.maketrans('','',string.punctuation))
-
 def intersect_posting(p1, p2):
     if len(p1) == 0 or len(p2) == 0:
         return PostingList()
@@ -129,10 +128,18 @@ def union_posting(p1, p2):
     return pn
 
 def inverse_posting(inverted_index,p):
+    # print(p)
     if isinstance(p, set) :
-        return set(inverted_index.docs.keys()).difference(p)
-    
+        # print('Returning ')
+        # print(set(inverted_index.docs).difference(p))
+        return set(inverted_index.docs).difference(p)
+    else:
+        # print(set(inverted_index.docs).difference(set(p.occurrance.keys())))
+        return set(inverted_index.docs).difference(set(p.occurrance.keys()))
     return inverted_index.docs.keys() - p.occurrance.keys()
+
+
+
 def build_index():
     path_to_data = os.path.dirname(__file__) + '../../data/'
     print(os.path.dirname(__file__))
@@ -273,14 +280,13 @@ class Lexer(object):
             self.advance()
 
     def integer(self):
-        """Return a (multidigit) integer consumed from the input."""
+
         result = ''
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
             self.advance()
         return int(result)
     def word(self):
-        """Return a (multidigit) integer consumed from the input."""
         result = ''
         # while self.current_char is not None and (self.current_char.isalpha() or self.current_char == '_'):
         while self.current_char is not None and (self.current_char in printable) and (self.current_char not in (' ', '|','&','!', '(', ')')):
@@ -333,13 +339,6 @@ class Lexer(object):
             self.error()
 
         return Token(EOF, None)
-
-
-###############################################################################
-#                                                                             #
-#  PARSER                                                                     #
-#                                                                             #
-###############################################################################
 
 class AST(object):
     pass
@@ -404,7 +403,7 @@ class Parser(object):
             return node
 
     def term(self):
-        """term : factor ((MUL | DIV) factor)*"""
+        
         node = self.factor()
 
         while self.current_token.type in (AND,):
@@ -412,25 +411,19 @@ class Parser(object):
          
             if token.type == AND:
                 self.eat(AND)
-        
             
-
             node = BinOp(left=node, op=token, right=self.factor())
 
         return node
 
     def expr(self):
-        """
-        expr   : term ((PLUS | MINUS) term)*
-        term   : factor ((MUL | DIV) factor)*
-        factor : INTEGER | LPAREN expr RPAREN
-        """
         node = self.term()
 
         while self.current_token.type in (OR,):
             token = self.current_token
             if token.type == OR:
                 self.eat(OR)
+            
             node = BinOp(left=node, op=token, right=self.term())
 
         return node
@@ -552,14 +545,15 @@ class Interpreter(NodeVisitor):
         print(tree)
         return self.visit(tree)
 
+
 def get_boolean_query(query):
     text = str(query)
     text = text.replace(' and ','&')
     text = text.replace(' AND ','&')
     text = text.replace(' or ','|')
     text = text.replace(' OR ','|')
-    text = text.replace(' NOT ', '!')
-    text = text.replace(' not ','!')
+    text = text.replace('NOT', '!')
+    text = text.replace('not ','!')
     print(text)
     inverted_index_model_obj = InvertedIndexModel.objects.get()
     inverted_index = inverted_index_model_obj.data
@@ -591,7 +585,7 @@ def positional_intersect(p1, p2, k):
         index_p1 = 0
         for pos1 in positions1:
             for pos2 in positions2:
-                if pos2['token_no'] -  pos1['token_no'] <= k and pos2['token_no'] -  pos1['token_no'] > 0:
+                if pos2['token_no'] -  pos1['token_no'] == k and pos2['token_no'] -  pos1['token_no'] > 0:
                     ans.append({'doc':doc, 'pos1':  pos1, 'pos2':pos2})
                     npl.addOccurrance(doc,pos1)
                     npl.addOccurrance(doc,pos2)
