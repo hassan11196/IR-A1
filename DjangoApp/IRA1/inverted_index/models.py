@@ -4,6 +4,7 @@ from django.db import models
 from picklefield.fields import PickledObjectField
 
 class InvertedIndexModel(models.Model):
+   
     data = PickledObjectField()
     status = models.BooleanField(default=False, name = 'status')
     id = models.DateTimeField(auto_now_add=True, primary_key = True)

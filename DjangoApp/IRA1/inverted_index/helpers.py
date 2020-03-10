@@ -555,7 +555,7 @@ def get_boolean_query(query):
     text = text.replace('NOT', '!')
     text = text.replace('not ','!')
     print(text)
-    inverted_index_model_obj = InvertedIndexModel.objects.get()
+    inverted_index_model_obj = InvertedIndexModel.objects.latest('id')
     inverted_index = inverted_index_model_obj.data
     print('Inverted Index')
     
@@ -604,7 +604,7 @@ def get_phrasal_query(query):
     ps = PorterStemmer()
     q1 = ps.stem(q1)
     q2 = ps.stem(q2)
-    inverted_index_model_obj = InvertedIndexModel.objects.get()
+    inverted_index_model_obj = InvertedIndexModel.objects.latest('id')
     inverted_index = inverted_index_model_obj.data
     print('Inverted Index')
     result = [] 
@@ -625,7 +625,7 @@ def get_proximity_query(query):
     q1 = ps.stem(q1)
     q2 = ps.stem(q2)
     k = int(q3[1]) + 1
-    inverted_index_model_obj = InvertedIndexModel.objects.get()
+    inverted_index_model_obj = InvertedIndexModel.objects.latest('id')
     inverted_index = inverted_index_model_obj.data
     
     print('Inverted Index')
