@@ -166,7 +166,7 @@ def build_index():
     print(stop_words)
 
     for file_number in range(0, 56):
-        with open(BASE_URL +f'speech_{file_number}.txt', 'r') as file1:
+        with open(BASE_URL +f'/speech_{file_number}.txt', 'r') as file1:
             lines = file1.readlines()
             print(f'File Number : speech_{file_number}.txt' )
             print(lines[0])
