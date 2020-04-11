@@ -141,18 +141,10 @@ def inverse_posting(inverted_index,p):
 
 
 def build_index():
-    path_to_data = os.path.dirname(__file__) + '/../../data/'
-    print(os.path.dirname(__file__))
-    print(path_to_data)
-    from os import walk
-
-    f = []
-    for (dirpath, dirnames, filenames) in walk(path_to_data):
-        print(dirnames)
-        print(dirpath)
-        f.extend(filenames)
-        
-    print(f)
+    
+    BASE_URL = os.path.join(BASE_DIR, 'IRA1\static')
+    print(BASE_URL)
+    
     vocab = set()
     doc_contents = []
     inverted_index = InvertedIndex()
@@ -164,7 +156,7 @@ def build_index():
 
     ps = PorterStemmer()
     stop_words = set()
-    with open(path_to_data+'Stopword-List.txt', 'r') as stop_word_file:
+    with open(BASE_URL+'/Stopword-List.txt', 'r') as stop_word_file:
         lines = stop_word_file.readlines()
         for line in lines:
             stop_words.add(line.split('\n')[0])
@@ -172,7 +164,7 @@ def build_index():
     print(stop_words)
 
     for file_number in range(0, 56):
-        with open(path_to_data + f'Trump Speechs/speech_{file_number}.txt', 'r') as file1:
+        with open(BASE_URL +f'speech_{file_number}.txt', 'r') as file1:
             lines = file1.readlines()
             print(f'File Number : speech_{file_number}.txt' )
             print(lines[0])
