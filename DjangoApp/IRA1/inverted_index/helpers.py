@@ -11,6 +11,8 @@ from nltk.stem import PorterStemmer
 from string import printable
 import re
 from .models import InvertedIndexModel
+FILE_PATH = os.path.dirname(__file__) + '../../data/' + 'Trump Speechs/speech_'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class PostingList(object):
     def __init__(self):
         self.total_count = 0
