@@ -119,7 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATICFILES_DIRS = [
-    os.path.dirname(__file__) + '../../data/' + 'Trump Speechs/'
+    os.path.dirname(__file__) + '../../data/' + 'Trump Speechs/',
+    os.path.dirname(__file__) + '../../data/'
 ]
 
 STATIC_URL = '/static/'

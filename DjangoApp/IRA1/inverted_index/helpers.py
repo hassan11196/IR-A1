@@ -144,7 +144,7 @@ def inverse_posting(inverted_index,p):
 
 def build_index():
     
-    BASE_URL = os.path.join(BASE_DIR, 'IRA1\static')
+    BASE_URL = os.path.join(BASE_DIR, 'IRA1/static')
     print(BASE_URL)
     
     vocab = set()
