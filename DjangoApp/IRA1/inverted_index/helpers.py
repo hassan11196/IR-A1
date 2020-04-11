@@ -141,15 +141,17 @@ def inverse_posting(inverted_index,p):
 
 
 def build_index():
-    path_to_data = os.path.dirname(__file__) + '../../data/'
+    path_to_data = os.path.dirname(__file__) + '/../../data/'
     print(os.path.dirname(__file__))
     print(path_to_data)
     from os import walk
 
     f = []
     for (dirpath, dirnames, filenames) in walk(path_to_data):
+        print(dirnames)
+        print(dirpath)
         f.extend(filenames)
-        break
+        
     print(f)
     vocab = set()
     doc_contents = []
